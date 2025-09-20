@@ -106,6 +106,7 @@ Please help me find the best flight options for this route.`;
     window.open(whatsappUrl, '_blank');
   };
   return (
+    <>
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image Carousel */}
       <div className="absolute inset-0">
@@ -142,7 +143,7 @@ Please help me find the best flight options for this route.`;
         ))}
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 pt-20 md:pt-24">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">
@@ -174,16 +175,16 @@ Please help me find the best flight options for this route.`;
             </div>
           </div>
 
-          {/* Quick Search Widget */}
-          <div className="lg:ml-8">
+          {/* Quick Search Widget - Desktop */}
+          <div className="hidden lg:block lg:ml-8">
             <div className="card p-8 max-w-md mx-auto lg:mx-0 bg-white bg-opacity-60 backdrop-blur-md border border-white/20">
-              <h3 className="text-2xl font-heading font-semibold text-secondary-900 mb-6 text-center">
+              <h3 className="text-xl font-heading font-semibold text-secondary-900 mb-6 text-center">
                 Quick Search
               </h3>
               <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label className="block text-xs font-medium text-secondary-700 mb-2">
                       From
                     </label>
                     <div className="relative">
@@ -207,7 +208,7 @@ Please help me find the best flight options for this route.`;
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label className="block text-xs font-medium text-secondary-700 mb-2">
                       To
                     </label>
                     <div className="relative">
@@ -234,7 +235,7 @@ Please help me find the best flight options for this route.`;
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label className="block text-xs font-medium text-secondary-700 mb-2">
                       Departure
                     </label>
                     <div className="relative">
@@ -248,7 +249,7 @@ Please help me find the best flight options for this route.`;
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-secondary-700 mb-2">
+                    <label className="block text-xs font-medium text-secondary-700 mb-2">
                       Return
                     </label>
                     <div className="relative">
@@ -264,7 +265,7 @@ Please help me find the best flight options for this route.`;
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
+                  <label className="block text-xs font-medium text-secondary-700 mb-2">
                     Passengers
                   </label>
                   <div className="relative">
@@ -313,6 +314,141 @@ Please help me find the best flight options for this route.`;
         </div>
       </div>
     </section>
+
+    {/* Quick Search Widget - Mobile */}
+    <div className="lg:hidden bg-white py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-md mx-auto">
+          <div className="card p-8 bg-white shadow-lg border border-gray-100">
+            <h3 className="text-xl font-heading font-semibold text-secondary-900 mb-6 text-center">
+              Quick Search
+            </h3>
+            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-secondary-700 mb-2">
+                    From
+                  </label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                    <select
+                      value={fromAirport}
+                      onChange={(e) => setFromAirport(e.target.value)}
+                      className="input-field pl-10"
+                      required
+                      disabled={isLoading}
+                    >
+                      <option value="">
+                        {isLoading ? 'Loading airports...' : 'Select departure airport'}
+                      </option>
+                      {filteredAirports.map((airport) => (
+                        <option key={airport.icao} value={airport.icao}>
+                          {airport.iata} - {airport.city}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-secondary-700 mb-2">
+                    To
+                  </label>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                    <select
+                      value={toAirport}
+                      onChange={(e) => setToAirport(e.target.value)}
+                      className="input-field pl-10"
+                      required
+                      disabled={isLoading}
+                    >
+                      <option value="">
+                        {isLoading ? 'Loading airports...' : 'Select destination airport'}
+                      </option>
+                      {filteredAirports.map((airport) => (
+                        <option key={airport.icao} value={airport.icao}>
+                          {airport.iata} - {airport.city}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-secondary-700 mb-2">
+                    Departure
+                  </label>
+                  <div className="relative">
+                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                    <input
+                      type="date"
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      className="input-field pl-10"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-secondary-700 mb-2">
+                    Return
+                  </label>
+                  <div className="relative">
+                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                    <input
+                      type="date"
+                      value={returnDate}
+                      onChange={(e) => setReturnDate(e.target.value)}
+                      className="input-field pl-10"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-secondary-700 mb-2">
+                  Passengers
+                </label>
+                <div className="relative">
+                  <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
+                  <select 
+                    value={passengers}
+                    onChange={(e) => setPassengers(e.target.value)}
+                    className="input-field pl-10"
+                  >
+                    <option value="1">1 Passenger</option>
+                    <option value="2">2 Passengers</option>
+                    <option value="3">3 Passengers</option>
+                    <option value="4">4 Passengers</option>
+                    <option value="5+">5+ Passengers</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="btn-primary w-full flex items-center justify-center space-x-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  <>
+                    <Search className="w-5 h-5" />
+                    <span>Search Now</span>
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </>
   );
 };
 
