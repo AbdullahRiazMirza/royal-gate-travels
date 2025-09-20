@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="flex items-center space-x-6 text-sm">
+          <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 text-sm">
             <a 
               href="tel:+923214899987" 
               className="flex items-center space-x-2 hover:text-primary-400 transition-colors duration-200 group"

@@ -97,8 +97,8 @@ I would like to get a custom quote for this package. Please provide me with pers
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black bg-opacity-50">
+      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="relative">
           {/* Package Image */}
@@ -150,7 +150,7 @@ I would like to get a custom quote for this package. Please provide me with pers
         </div>
 
         {/* Content */}
-        <div className="p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
           <div className="flex items-start justify-between mb-6">
             <div>
               <h2 className="text-3xl font-heading font-bold text-secondary-900 mb-2">
@@ -232,7 +232,7 @@ I would like to get a custom quote for this package. Please provide me with pers
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={handleBookNow}
               className="btn-primary text-lg px-8 py-4 flex items-center justify-center space-x-2 group flex-1"

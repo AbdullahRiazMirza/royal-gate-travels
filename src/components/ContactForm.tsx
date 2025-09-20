@@ -80,7 +80,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Contact Information */}
           <div className="space-y-8">
             <div className="space-y-4">

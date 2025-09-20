@@ -142,7 +142,7 @@ Please help me find the best flight options for this route.`;
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">
             <div className="space-y-6">
@@ -157,7 +157,7 @@ Please help me find the best flight options for this route.`;
 
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center gap-6 pt-8">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-6 sm:pt-8">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 <span className="text-sm text-white drop-shadow-md">24/7 Support</span>
@@ -180,7 +180,7 @@ Please help me find the best flight options for this route.`;
                 Quick Search
               </h3>
               <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-secondary-700 mb-2">
                       From
@@ -231,7 +231,7 @@ Please help me find the best flight options for this route.`;
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-secondary-700 mb-2">
                       Departure
