@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 
 interface HeaderProps {
   onCTAClick: () => void;
@@ -22,10 +22,6 @@ const Header: React.FC<HeaderProps> = ({ onCTAClick }) => {
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
     { name: 'Packages', href: '#packages' },
-    { name: 'How it works', href: '#how-it-works' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'FAQ', href: '#faq' },
-    { name: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -34,6 +30,14 @@ const Header: React.FC<HeaderProps> = ({ onCTAClick }) => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMenuOpen(false);
+  };
+
+  const handlePhoneClick = () => {
+    window.open('tel:+923214899987', '_self');
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/923214899987', '_blank');
   };
 
   return (
@@ -72,20 +76,26 @@ const Header: React.FC<HeaderProps> = ({ onCTAClick }) => {
             ))}
           </nav>
 
-          {/* CTA & Contact */}
+          {/* Contact Icons */}
           <div className="flex items-center space-x-4">
             {/* Phone */}
-            <div className="hidden md:flex items-center space-x-2 text-secondary-700">
-              <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">+44 20 1234 5678</span>
-            </div>
-
-            {/* CTA Button */}
             <button
-              onClick={onCTAClick}
-              className="btn-primary text-sm px-4 py-2"
+              onClick={handlePhoneClick}
+              className="flex items-center space-x-2 bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-full transition-colors duration-200"
+              aria-label="Call +92 3214899987"
             >
-              Request Quote
+              <Phone className="w-4 h-4" />
+              <span className="text-sm font-medium hidden sm:block">Phone</span>
+            </button>
+
+            {/* WhatsApp */}
+            <button
+              onClick={handleWhatsAppClick}
+              className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors duration-200"
+              aria-label="WhatsApp +92 3214899987"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-sm font-medium hidden sm:block">WhatsApp</span>
             </button>
 
             {/* Mobile Menu Button */}
@@ -113,16 +123,22 @@ const Header: React.FC<HeaderProps> = ({ onCTAClick }) => {
                 </button>
               ))}
               <div className="pt-4 border-t border-gray-200">
-                <div className="flex items-center space-x-2 text-secondary-700 mb-4">
-                  <Phone className="w-4 h-4" />
-                  <span className="text-sm font-medium">+44 20 1234 5678</span>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={handlePhoneClick}
+                    className="flex items-center space-x-2 text-secondary-700 hover:text-primary-500 py-2"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span className="text-sm font-medium">Call</span>
+                  </button>
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="flex items-center space-x-2 text-secondary-700 hover:text-green-500 py-2"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span className="text-sm font-medium">WhatsApp</span>
+                  </button>
                 </div>
-                <button
-                  onClick={onCTAClick}
-                  className="btn-primary w-full"
-                >
-                  Request Quote
-                </button>
               </div>
             </div>
           </div>
