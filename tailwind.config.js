@@ -45,8 +45,8 @@ export default {
         }
       },
       fontFamily: {
-        'heading': ['Playfair Display', 'serif'],
-        'body': ['Inter', 'sans-serif'],
+        'heading': ['Poppins', 'sans-serif'],
+        'body': ['Poppins', 'sans-serif'],
       },
       container: {
         center: true,

@@ -1,6 +1,6 @@
 # Royal Gate Travels - Travel Agency Website
 
-A modern, responsive single-page React application for a travel agency offering comprehensive travel services including honeymoon packages, Hajj & Umra, worldwide air tickets, travel insurance, visa services, and hotel booking.
+A modern, responsive single-page React application for a travel agency offering comprehensive travel services including honeymoon packages, Hajj & Umrah, worldwide air tickets, travel insurance, visa services, and hotel booking.
 
 ## 🚀 Features
 

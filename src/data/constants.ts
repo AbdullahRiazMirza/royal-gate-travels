@@ -13,10 +13,10 @@ export const services: Service[] = [
   },
   {
     id: '2',
-    title: 'Hajj & Umra',
+    title: 'Hajj & Umrah',
     slug: 'hajj',
     shortDescription: 'Sacred journeys with spiritual guidance',
-    longDescription: 'Experience the pilgrimage of a lifetime with our comprehensive Hajj and Umra packages, including accommodation and guidance.',
+    longDescription: 'Experience the pilgrimage of a lifetime with our comprehensive Hajj and Umrah packages, including accommodation and guidance.',
     iconName: 'Mosque',
     ctaLink: '#contact'
   },
@@ -80,8 +80,8 @@ export const featuredPackages: Package[] = [
     durationDays: 14,
     images: [getAssetPath('/packages/hajj-package.jpg')],
     highlights: ['5-star accommodation in Makkah', 'Expert Hajj guide', 'All meals included', 'Transportation provided'],
-    itinerary: ['Day 1-3: Arrival & preparation', 'Day 4-7: Umra performance', 'Day 8-12: Hajj rituals', 'Day 13-14: Departure'],
-    category: 'hajj-umra'
+    itinerary: ['Day 1-3: Arrival & preparation', 'Day 4-7: Umrah performance', 'Day 8-12: Hajj rituals', 'Day 13-14: Departure'],
+    category: 'hajj-Umrah'
   },
   {
     id: '3',
@@ -101,7 +101,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '1',
     name: 'Ahmed & Fatima Hassan',
-    location: 'London, UK',
+    location: 'Sialkot, Pakistan',
     rating: 5,
     quote: 'Our honeymoon in the Maldives was absolutely perfect. Royal Gate Travels made everything seamless and memorable.',
     image: '/images/testimonial-1.jpg'
@@ -109,15 +109,15 @@ export const testimonials: Testimonial[] = [
   {
     id: '2',
     name: 'Mohammed Ali',
-    location: 'Manchester, UK',
+    location: 'Islamabad, Pakistan',
     rating: 5,
     quote: 'The Hajj package was exceptional. The guidance and support throughout the journey was outstanding.',
     image: '/images/testimonial-2.jpg'
   },
   {
     id: '3',
-    name: 'Sarah Johnson',
-    location: 'Birmingham, UK',
+    name: 'Usman Ali',
+    location: 'Karachi, Pakistan',
     rating: 5,
     quote: 'Professional service and great deals on flights. Will definitely use them again for future travels.',
     image: '/images/testimonial-3.jpg'
@@ -125,7 +125,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '4',
     name: 'Ibrahim Khan',
-    location: 'Leeds, UK',
+    location: 'Lahore, Pakistan',
     rating: 5,
     quote: 'The visa assistance was incredibly helpful. They guided us through every step of the process.',
     image: '/images/testimonial-4.jpg'

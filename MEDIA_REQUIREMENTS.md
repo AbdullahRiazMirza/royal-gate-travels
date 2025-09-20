@@ -41,7 +41,7 @@ This document outlines the media specifications and requirements for the hero se
 - **Content**: Mosque, pilgrimage site, or cultural landmark
 - **Mood**: Sacred, respectful, meaningful
 - **Colors**: Warm, golden hour lighting
-- **Usage**: Highlights Hajj & Umra services
+- **Usage**: Highlights Hajj & Umrah services
 
 #### **Option 4: Adventure & Exploration**
 - **Description**: Dynamic travel scene with multiple activities

@@ -120,7 +120,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
 
               {/* Office Address Tile */}
               <a 
-                href="https://maps.google.com/maps?q=123+Travel+Street,+London,+UK" 
+                href="https://maps.app.goo.gl/nAfCoeB7wJnYJY449" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
@@ -131,7 +131,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">Office Address</h4>
-                    <p className="text-primary-600 font-medium">123 Travel Street, London, UK</p>
+                    <p className="text-primary-600 font-medium">Office # 175, Paradise Floor, Siddiqie Trade Center, Main Boulevard, Lahore, Pakistan</p>
                     <p className="text-sm text-secondary-500">View on Google Maps</p>
                   </div>
                 </div>

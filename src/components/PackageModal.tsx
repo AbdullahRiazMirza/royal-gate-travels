@@ -38,7 +38,7 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
   const getCategoryColor = (category: string) => {
     const colors = {
       honeymoon: 'from-pink-500 to-rose-500',
-      'hajj-umra': 'from-green-500 to-emerald-500',
+      'hajj-Umrah': 'from-green-500 to-emerald-500',
       'air-tickets': 'from-blue-500 to-cyan-500',
       'travel-insurance': 'from-purple-500 to-violet-500',
       'visa-services': 'from-orange-500 to-amber-500',
@@ -50,7 +50,7 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
   const getCategoryLabel = (category: string) => {
     const labels = {
       honeymoon: 'Honeymoon',
-      'hajj-umra': 'Hajj & Umra',
+      'hajj-Umrah': 'Hajj & Umrah',
       'air-tickets': 'Air Tickets',
       'travel-insurance': 'Travel Insurance',
       'visa-services': 'Visa Services',
@@ -121,7 +121,7 @@ I would like to get a custom quote for this package. Please provide me with pers
           }`}>
             <div className="text-8xl opacity-30">
               {pkg.category === 'honeymoon' && '💕'}
-              {pkg.category === 'hajj-umra' && '🕌'}
+              {pkg.category === 'hajj-Umrah' && '🕌'}
               {pkg.category === 'air-tickets' && '✈️'}
               {pkg.category === 'travel-insurance' && '🛡️'}
               {pkg.category === 'visa-services' && '📋'}

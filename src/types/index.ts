@@ -18,7 +18,7 @@ export interface Package {
   images: string[];
   highlights: string[];
   itinerary: string[];
-  category: 'honeymoon' | 'hajj-umra' | 'air-tickets' | 'travel-insurance' | 'visa-services' | 'hotel-booking';
+  category: 'honeymoon' | 'hajj-Umrah' | 'air-tickets' | 'travel-insurance' | 'visa-services' | 'hotel-booking';
 }
 
 export interface Inquiry {

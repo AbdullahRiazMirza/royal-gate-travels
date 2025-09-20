@@ -149,7 +149,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
         </div>
 
         {/* Trust Badges */}
-        <div className="mt-16 text-center">
+        {/* <div className="mt-16 text-center">
           <h3 className="text-xl font-heading font-semibold text-secondary-900 mb-8">
             Trusted by thousands of travelers worldwide
           </h3>
@@ -160,7 +160,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
