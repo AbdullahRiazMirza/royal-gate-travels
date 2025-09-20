@@ -2,30 +2,22 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import type { Inquiry } from '../types';
-import { Send, CheckCircle, AlertCircle, Phone, Mail, MapPin } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 
 interface ContactFormProps {
-  onSubmit: (data: Inquiry) => Promise<void>;
+  emailEndpoint?: string; // Email endpoint URL for form submission
 }
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(10, 'Please enter a valid phone number'),
-  service: z.string().min(1, 'Please select a service'),
-  destination: z.string().optional(),
-  dateFrom: z.string().optional(),
-  dateTo: z.string().optional(),
-  travelers: z.number().min(1, 'Number of travelers must be at least 1'),
-  budget: z.string().optional(),
-  message: z.string().optional(),
-  acceptTerms: z.boolean().refine(val => val === true, 'You must accept the terms and conditions'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 
-const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
+const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -43,7 +35,28 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     setSubmitStatus('idle');
 
     try {
-      await onSubmit(data);
+      if (emailEndpoint) {
+        // Send email via the provided endpoint
+        const response = await fetch(emailEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to send email');
+        }
+      } else {
+        // Fallback: open default email client
+        const subject = encodeURIComponent('Contact Form Inquiry');
+        const body = encodeURIComponent(
+          `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`
+        );
+        window.open(`mailto:info@royalgatetravels.com?subject=${subject}&body=${body}`);
+      }
+      
       setSubmitStatus('success');
       reset();
     } catch (error) {
@@ -54,97 +67,94 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     }
   };
 
-  const services = [
-    'Honeymoon packages',
-    'Hajj & Umra',
-    'Worldwide Air tickets',
-    'Travel Insurance',
-    'Visa Services',
-    'Hotel Booking',
-  ];
 
   return (
     <section id="contact" className="section-padding bg-gradient-to-br from-primary-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-secondary-900 mb-6">
-            Get Your Free Quote
+            Contact Us
           </h2>
           <p className="text-lg md:text-xl text-secondary-600 max-w-3xl mx-auto">
-            Ready to start planning your dream trip? Fill out the form below and our travel experts 
-            will get back to you within 24 hours with a personalized quote.
+            Get in touch with us for all your travel needs. We're here to help you plan your perfect journey.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-heading font-semibold text-secondary-900 mb-6">
-                Get in Touch
-              </h3>
-              <p className="text-lg text-secondary-600 mb-8">
-                Our travel experts are standing by to help you plan the perfect journey. 
-                Contact us today and let's make your travel dreams come true.
-              </p>
-            </div>
+            <div className="space-y-4">
+              {/* Phone Tile */}
+              <a 
+                href="tel:+923214899987" 
+                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary-200 transition-colors duration-200">
+                    <Phone className="w-6 h-6 text-primary-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">Phone</h4>
+                    <p className="text-primary-600 font-medium">+92 321 489 9987</p>
+                    <p className="text-sm text-secondary-500">Mon-Fri 9AM-6PM, Sat 10AM-4PM</p>
+                  </div>
+                </div>
+              </a>
 
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary-500" />
+              {/* Email Tile */}
+              <a 
+                href="mailto:info@royalgatetravels.com" 
+                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary-200 transition-colors duration-200">
+                    <Mail className="w-6 h-6 text-primary-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">Email</h4>
+                    <p className="text-primary-600 font-medium">info@royalgatetravels.com</p>
+                    <p className="text-sm text-secondary-500">We'll respond within 24 hours</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-secondary-900 mb-1">Phone</h4>
-                  <p className="text-secondary-600">+44 20 1234 5678</p>
-                  <p className="text-sm text-secondary-500">Mon-Fri 9AM-6PM, Sat 10AM-4PM</p>
-                </div>
-              </div>
+              </a>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary-500" />
+              {/* Office Address Tile */}
+              <a 
+                href="https://maps.google.com/maps?q=123+Travel+Street,+London,+UK" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary-200 transition-colors duration-200">
+                    <MapPin className="w-6 h-6 text-primary-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">Office Address</h4>
+                    <p className="text-primary-600 font-medium">123 Travel Street, London, UK</p>
+                    <p className="text-sm text-secondary-500">View on Google Maps</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-secondary-900 mb-1">Email</h4>
-                  <p className="text-secondary-600">info@royalgatetravels.com</p>
-                  <p className="text-sm text-secondary-500">We'll respond within 24 hours</p>
-                </div>
-              </div>
+              </a>
 
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-primary-500" />
+              {/* WhatsApp Tile */}
+              <a 
+                href="https://wa.me/923214899987" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-primary-200 transition-colors duration-200">
+                    <MessageCircle className="w-6 h-6 text-primary-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">WhatsApp</h4>
+                    <p className="text-primary-600 font-medium">+92 321 489 9987</p>
+                    <p className="text-sm text-secondary-500">Quick responses via WhatsApp</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-secondary-900 mb-1">Office</h4>
-                  <p className="text-secondary-600">123 Travel Street, London, UK</p>
-                  <p className="text-sm text-secondary-500">Visit us for in-person consultations</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h4 className="font-semibold text-secondary-900 mb-4">Why Choose Us?</h4>
-              <ul className="space-y-2 text-sm text-secondary-600">
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>24/7 customer support</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Best price guarantee</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Licensed travel agents</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Halal-friendly options</span>
-                </li>
-              </ul>
+              </a>
             </div>
           </div>
 
@@ -190,165 +200,40 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                 </div>
               </div>
 
-              {/* Phone and Service */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    {...register('phone')}
-                    type="tel"
-                    className={`input-field ${errors.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
-                    placeholder="Enter your phone number"
-                  />
-                  {errors.phone && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center space-x-1">
-                      <AlertCircle className="w-4 h-4" />
-                      <span>{errors.phone.message}</span>
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Service Required *
-                  </label>
-                  <select
-                    {...register('service')}
-                    className={`input-field ${errors.service ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
-                  >
-                    <option value="">Select a service</option>
-                    {services.map((service) => (
-                      <option key={service} value={service}>
-                        {service}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.service && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center space-x-1">
-                      <AlertCircle className="w-4 h-4" />
-                      <span>{errors.service.message}</span>
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Destination and Travel Dates */}
+              {/* Phone */}
               <div>
                 <label className="block text-sm font-medium text-secondary-700 mb-2">
-                  Preferred Destination
+                  Phone Number *
                 </label>
                 <input
-                  {...register('destination')}
-                  type="text"
-                  className="input-field"
-                  placeholder="Where would you like to go?"
+                  {...register('phone')}
+                  type="tel"
+                  className={`input-field ${errors.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                  placeholder="Enter your phone number"
                 />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Travel Date From
-                  </label>
-                  <input
-                    {...register('dateFrom')}
-                    type="date"
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Travel Date To
-                  </label>
-                  <input
-                    {...register('dateTo')}
-                    type="date"
-                    className="input-field"
-                  />
-                </div>
-              </div>
-
-              {/* Travelers and Budget */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Number of Travelers *
-                  </label>
-                  <input
-                    {...register('travelers', { valueAsNumber: true })}
-                    type="number"
-                    min="1"
-                    className={`input-field ${errors.travelers ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
-                    placeholder="How many people?"
-                  />
-                  {errors.travelers && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center space-x-1">
-                      <AlertCircle className="w-4 h-4" />
-                      <span>{errors.travelers.message}</span>
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-secondary-700 mb-2">
-                    Budget Range
-                  </label>
-                  <select
-                    {...register('budget')}
-                    className="input-field"
-                  >
-                    <option value="">Select budget range</option>
-                    <option value="under-1000">Under £1,000</option>
-                    <option value="1000-2500">£1,000 - £2,500</option>
-                    <option value="2500-5000">£2,500 - £5,000</option>
-                    <option value="5000-10000">£5,000 - £10,000</option>
-                    <option value="over-10000">Over £10,000</option>
-                  </select>
-                </div>
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600 flex items-center space-x-1">
+                    <AlertCircle className="w-4 h-4" />
+                    <span>{errors.phone.message}</span>
+                  </p>
+                )}
               </div>
 
               {/* Message */}
               <div>
                 <label className="block text-sm font-medium text-secondary-700 mb-2">
-                  Special Requests or Message
+                  Message *
                 </label>
                 <textarea
                   {...register('message')}
                   rows={4}
-                  className="input-field resize-none"
-                  placeholder="Tell us about your travel preferences, special requirements, or any questions you have..."
+                  className={`input-field resize-none ${errors.message ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}`}
+                  placeholder="Tell us about your travel needs, questions, or how we can help you..."
                 />
-              </div>
-
-              {/* Terms and Conditions */}
-              <div>
-                <label className="flex items-start space-x-3">
-                  <input
-                    {...register('acceptTerms')}
-                    type="checkbox"
-                    className={`mt-1 w-4 h-4 text-primary-500 border-gray-300 rounded focus:ring-primary-500 ${
-                      errors.acceptTerms ? 'border-red-500' : ''
-                    }`}
-                  />
-                  <span className="text-sm text-secondary-600">
-                    I agree to the{' '}
-                    <a href="#" className="text-primary-500 hover:text-primary-600 underline">
-                      Terms and Conditions
-                    </a>{' '}
-                    and{' '}
-                    <a href="#" className="text-primary-500 hover:text-primary-600 underline">
-                      Privacy Policy
-                    </a>
-                    . *
-                  </span>
-                </label>
-                {errors.acceptTerms && (
+                {errors.message && (
                   <p className="mt-1 text-sm text-red-600 flex items-center space-x-1">
                     <AlertCircle className="w-4 h-4" />
-                    <span>{errors.acceptTerms.message}</span>
+                    <span>{errors.message.message}</span>
                   </p>
                 )}
               </div>
@@ -367,7 +252,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                 ) : (
                   <>
                     <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    <span>Send Request</span>
+                    <span>Send Message</span>
                   </>
                 )}
               </button>
@@ -377,7 +262,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-2">
                   <CheckCircle className="w-5 h-5 text-green-500" />
                   <span className="text-green-700 font-medium">
-                    Thank you! Your request has been submitted successfully. We'll get back to you within 24 hours.
+                    Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
                   </span>
                 </div>
               )}
@@ -386,7 +271,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                 <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
                   <AlertCircle className="w-5 h-5 text-red-500" />
                   <span className="text-red-700 font-medium">
-                    Sorry, there was an error submitting your request. Please try again or contact us directly.
+                    Sorry, there was an error sending your message. Please try again or contact us directly.
                   </span>
                 </div>
               )}

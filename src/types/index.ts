@@ -24,14 +24,7 @@ export interface Inquiry {
   name: string;
   email: string;
   phone: string;
-  service: string;
-  destination?: string;
-  dateFrom?: string;
-  dateTo?: string;
-  travelers: number;
-  budget?: string;
-  message?: string;
-  acceptTerms: boolean;
+  message: string;
 }
 
 export interface Testimonial {

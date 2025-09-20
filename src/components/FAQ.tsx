@@ -43,7 +43,7 @@ const FAQ: React.FC<FAQProps> = ({ items }) => {
                 <div key={item.id} className="card overflow-hidden">
                   <button
                     onClick={() => toggleItem(item.id)}
-                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset"
+                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-inset"
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${item.id}`}
                   >
@@ -51,19 +51,27 @@ const FAQ: React.FC<FAQProps> = ({ items }) => {
                       {item.question}
                     </h3>
                     <div className="flex-shrink-0">
-                      {isOpen ? (
-                        <Minus className="w-6 h-6 text-primary-500" />
-                      ) : (
-                        <Plus className="w-6 h-6 text-primary-500" />
-                      )}
+                      <div className={`transition-transform duration-300 ease-in-out ${
+                        isOpen ? 'rotate-180' : 'rotate-0'
+                      }`}>
+                        {isOpen ? (
+                          <Minus className="w-6 h-6 text-primary-500" />
+                        ) : (
+                          <Plus className="w-6 h-6 text-primary-500" />
+                        )}
+                      </div>
                     </div>
                   </button>
                   
                   <div
                     id={`faq-answer-${item.id}`}
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                      isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
                     }`}
+                    style={{
+                      transitionProperty: 'max-height, opacity, padding',
+                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
                   >
                     <div className="px-6 pb-6">
                       <div className="border-t border-gray-200 pt-4">
@@ -102,11 +110,11 @@ const FAQ: React.FC<FAQProps> = ({ items }) => {
                 </button>
                 <button
                   onClick={() => {
-                    window.open('tel:+442012345678', '_self');
+                    window.open('tel:+923214899987', '_self');
                   }}
                   className="btn-secondary text-lg px-8 py-4"
                 >
-                  Call +44 20 1234 5678
+                  Call +92 321 489 9987
                 </button>
               </div>
             </div>

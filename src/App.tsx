@@ -8,27 +8,12 @@ import FAQ from './components/FAQ';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import { services, featuredPackages, testimonials, faqItems, howItWorksSteps } from './data/constants';
-import type { Inquiry } from './types';
 
 function App() {
 
-  const handleFormSubmit = async (data: Inquiry) => {
-    // Simulate API call
-    console.log('Form submitted:', data);
-    
-    // In a real application, you would send this data to your backend API
-    // Example:
-    // const response = await fetch('/api/inquiries', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    
-    // For now, we'll just simulate a successful submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  };
+  // Email endpoint for form submissions
+  // Replace this with your actual email service endpoint
+  const emailEndpoint = import.meta.env.VITE_EMAIL_ENDPOINT || '';
 
   return (
     <div className="App">
@@ -40,7 +25,7 @@ function App() {
         <HowItWorks steps={howItWorksSteps} />
         <Testimonials testimonials={testimonials} />
         <FAQ items={faqItems} />
-        <ContactForm onSubmit={handleFormSubmit} />
+        <ContactForm emailEndpoint={emailEndpoint} />
       </main>
       <Footer />
     </div>
