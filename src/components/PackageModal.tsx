@@ -60,10 +60,39 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
   };
 
   const handleBookNow = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const message = `🛫 *Package Booking Request*
+
+*Package:* ${pkg.title}
+*Duration:* ${pkg.durationDays} days
+*Price:* PKR ${pkg.priceFromPKR}
+*Category:* ${getCategoryLabel(pkg.category)}
+
+*Highlights:*
+${pkg.highlights.map(highlight => `• ${highlight}`).join('\n')}
+
+I would like to book this package. Please provide me with more details and booking process.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/923214899987?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+    onClose();
+  };
+
+  const handleCustomQuote = () => {
+    const message = `💬 *Custom Quote Request*
+
+*Package:* ${pkg.title}
+*Duration:* ${pkg.durationDays} days
+*Price:* PKR ${pkg.priceFromPKR}
+*Category:* ${getCategoryLabel(pkg.category)}
+
+I would like to get a custom quote for this package. Please provide me with personalized options and pricing.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/923214899987?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
     onClose();
   };
 
@@ -134,7 +163,7 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
             <div className="text-right">
               <div className="text-sm text-secondary-500 mb-1">Starting from</div>
               <div className="text-3xl font-bold text-primary-500">
-                £{pkg.priceFrom.toLocaleString()}
+                PKR {pkg.priceFromPKR}
               </div>
               <div className="flex items-center space-x-1 mt-2">
                 <Star className="w-4 h-4 text-yellow-500 fill-current" />
@@ -212,13 +241,7 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              onClick={() => {
-                const element = document.querySelector('#contact');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-                onClose();
-              }}
+              onClick={handleCustomQuote}
               className="btn-secondary text-lg px-8 py-4 flex-1"
             >
               Get Custom Quote

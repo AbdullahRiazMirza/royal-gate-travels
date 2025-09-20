@@ -10,8 +10,12 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">R</span>
+            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-2 shadow-lg">
+              <img 
+                src="/RGTT logo.PNG" 
+                alt="Royal Gate Travels Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <h3 className="text-lg font-heading font-bold">Royal Gate Travels</h3>

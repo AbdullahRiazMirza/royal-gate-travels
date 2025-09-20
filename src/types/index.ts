@@ -13,6 +13,7 @@ export interface Package {
   title: string;
   summary: string;
   priceFrom: number;
+  priceFromPKR: string;
   durationDays: number;
   images: string[];
   highlights: string[];

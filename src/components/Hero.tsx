@@ -23,6 +23,28 @@ const Hero: React.FC = () => {
   const [returnDate, setReturnDate] = useState('');
   const [passengers, setPassengers] = useState('1');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    {
+      src: '/packages/hajj-package.jpg',
+      alt: 'Hajj Package - Sacred Pilgrimage',
+      title: 'Sacred Journeys',
+      subtitle: 'Experience the spiritual journey of a lifetime'
+    },
+    {
+      src: '/services/honeymoon.jpg',
+      alt: 'Honeymoon Packages - Romantic Getaways',
+      title: 'Romantic Escapes',
+      subtitle: 'Create unforgettable memories together'
+    },
+    {
+      src: '/packages/burjalarab.jpg',
+      alt: 'Burj Al Arab - Dubai Luxury',
+      title: 'Luxury Destinations',
+      subtitle: 'Indulge in world-class luxury and comfort'
+    }
+  ];
 
   useEffect(() => {
     // Load airports data
@@ -40,6 +62,15 @@ const Hero: React.FC = () => {
         setIsLoading(false);
       });
   }, []);
+
+  // Auto-rotate carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 12000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   const handleSearch = () => {
     if (!fromAirport || !toAirport) {
@@ -74,12 +105,40 @@ Please help me find the best flight options for this route.`;
     window.open(whatsappUrl, '_blank');
   };
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-50 to-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl animate-bounce-gentle"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-accent-500 rounded-full mix-blend-multiply filter blur-xl animate-bounce-gentle" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl animate-bounce-gentle" style={{ animationDelay: '4s' }}></div>
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0">
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          </div>
+        ))}
+      </div>
+
+      {/* Carousel Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentImageIndex
+                ? 'bg-white scale-125'
+                : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -87,13 +146,12 @@ Please help me find the best flight options for this route.`;
           {/* Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-secondary-900 leading-tight">
-                Your Gateway to
-                <span className="text-primary-500 block">Extraordinary Journeys</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight drop-shadow-lg">
+                {heroImages[currentImageIndex].title}
+                <span className="text-primary-300 block">Extraordinary Journeys</span>
               </h1>
-              <p className="text-lg md:text-xl text-secondary-600 leading-relaxed max-w-2xl">
-                Experience the world with our premium travel services. From romantic honeymoons to sacred pilgrimages, 
-                we craft unforgettable memories for every journey.
+              <p className="text-lg md:text-xl text-white leading-relaxed max-w-2xl drop-shadow-md">
+                {heroImages[currentImageIndex].subtitle}
               </p>
             </div>
 
@@ -101,23 +159,23 @@ Please help me find the best flight options for this route.`;
             {/* Trust Indicators */}
             <div className="flex flex-wrap items-center gap-6 pt-8">
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-secondary-600">24/7 Support</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white drop-shadow-md">24/7 Support</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-secondary-600">Certified Agents</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white drop-shadow-md">Certified Agents</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-secondary-600">Best Price Guarantee</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span className="text-sm text-white drop-shadow-md">Best Price Guarantee</span>
               </div>
             </div>
           </div>
 
           {/* Quick Search Widget */}
           <div className="lg:ml-8">
-            <div className="card p-8 max-w-md mx-auto lg:mx-0">
+            <div className="card p-8 max-w-md mx-auto lg:mx-0 bg-white bg-opacity-60 backdrop-blur-md border border-white/20">
               <h3 className="text-2xl font-heading font-semibold text-secondary-900 mb-6 text-center">
                 Quick Search
               </h3>
@@ -248,9 +306,9 @@ Please help me find the best flight options for this route.`;
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-primary-500 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary-500 rounded-full mt-2 animate-pulse"></div>
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

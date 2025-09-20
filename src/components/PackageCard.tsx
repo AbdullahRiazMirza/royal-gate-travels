@@ -122,11 +122,6 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onViewDetails }) => {
                 {highlight}
               </span>
             ))}
-            {pkg.highlights.length > 2 && (
-              <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                +{pkg.highlights.length - 2} more
-              </span>
-            )}
           </div>
         </div>
 
@@ -149,7 +144,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onViewDetails }) => {
           <div>
             <span className="text-sm text-secondary-500">Starting from</span>
             <div className="text-2xl font-bold text-secondary-900">
-              £{pkg.priceFrom.toLocaleString()}
+              PKR {pkg.priceFromPKR}
             </div>
           </div>
           <button

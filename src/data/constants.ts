@@ -62,7 +62,8 @@ export const featuredPackages: Package[] = [
     id: '1',
     title: 'Maldives Honeymoon Paradise',
     summary: '7 days of luxury in overwater bungalows',
-    priceFrom: 2500,
+    priceFrom: 500000, // 5 lacs PKR
+    priceFromPKR: '5 lacs',
     durationDays: 7,
     images: ['/packages/maldives-honeymoon.jpg'],
     highlights: ['Overwater bungalow', 'Private beach access', 'Couples spa treatment', 'Sunset dinner cruise'],
@@ -73,7 +74,8 @@ export const featuredPackages: Package[] = [
     id: '2',
     title: 'Complete Hajj Package 2024',
     summary: 'Full Hajj experience with expert guidance',
-    priceFrom: 4500,
+    priceFrom: 900000, // 9 lacs PKR
+    priceFromPKR: '9 lacs',
     durationDays: 14,
     images: ['/packages/hajj-package.jpg'],
     highlights: ['5-star accommodation in Makkah', 'Expert Hajj guide', 'All meals included', 'Transportation provided'],
@@ -84,7 +86,8 @@ export const featuredPackages: Package[] = [
     id: '3',
     title: 'European Grand Tour',
     summary: '14 days exploring Europe\'s finest cities',
-    priceFrom: 3200,
+    priceFrom: 640000, // 6.4 lacs PKR
+    priceFromPKR: '8 lacs',
     durationDays: 14,
     images: ['/packages/europe-tour.jpg'],
     highlights: ['Paris, Rome, Barcelona', 'Guided city tours', 'High-speed train passes', '4-star hotels'],
