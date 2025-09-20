@@ -1,12 +1,78 @@
-import React from 'react';
-import { Search, Calendar, Users, MapPin, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Calendar, Users, MapPin } from 'lucide-react';
 
-interface HeroProps {
-  onExplore: () => void;
-  onContact: () => void;
+interface Airport {
+  icao: string;
+  iata: string;
+  name: string;
+  city: string;
+  state: string;
+  country: string;
+  elevation: number;
+  lat: number;
+  lon: number;
+  tz: string;
 }
 
-const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
+const Hero: React.FC = () => {
+  const [airports, setAirports] = useState<Airport[]>([]);
+  const [filteredAirports, setFilteredAirports] = useState<Airport[]>([]);
+  const [fromAirport, setFromAirport] = useState('');
+  const [toAirport, setToAirport] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [passengers, setPassengers] = useState('1');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Load airports data
+    fetch('/airports.json')
+      .then(response => response.json())
+      .then(data => {
+        // Convert object to array and filter for airports with IATA codes
+        const airportArray = Object.values(data).filter((airport: any) => airport.iata && airport.iata !== '');
+        setAirports(airportArray as Airport[]);
+        setFilteredAirports(airportArray as Airport[]);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading airports:', error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleSearch = () => {
+    if (!fromAirport || !toAirport) {
+      alert('Please select both departure and destination airports');
+      return;
+    }
+
+    const fromAirportData = airports.find(airport => airport.icao === fromAirport);
+    const toAirportData = airports.find(airport => airport.icao === toAirport);
+
+    if (!fromAirportData || !toAirportData) {
+      alert('Please select valid airports');
+      return;
+    }
+
+    // Create WhatsApp message
+    const message = `🛫 *Flight Search Request*
+
+*From:* ${fromAirportData.iata} - ${fromAirportData.city}
+*To:* ${toAirportData.iata} - ${toAirportData.city}
+*Departure:* ${departureDate || 'Not specified'}
+*Return:* ${returnDate || 'One way'}
+*Passengers:* ${passengers}
+
+Please help me find the best flight options for this route.`;
+
+    // Encode message for WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/923214899987?text=${encodedMessage}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+  };
   return (
     <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-50 to-white overflow-hidden">
       {/* Background Pattern */}
@@ -31,22 +97,6 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
               </p>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={onExplore}
-                className="btn-primary text-lg px-8 py-4 flex items-center justify-center space-x-2 group"
-              >
-                <span>Explore Packages</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={onContact}
-                className="btn-secondary text-lg px-8 py-4"
-              >
-                Contact an Agent
-              </button>
-            </div>
 
             {/* Trust Indicators */}
             <div className="flex flex-wrap items-center gap-6 pt-8">
@@ -71,7 +121,7 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
               <h3 className="text-2xl font-heading font-semibold text-secondary-900 mb-6 text-center">
                 Quick Search
               </h3>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-secondary-700 mb-2">
@@ -79,11 +129,22 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
                     </label>
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
-                      <input
-                        type="text"
-                        placeholder="Departure"
+                      <select
+                        value={fromAirport}
+                        onChange={(e) => setFromAirport(e.target.value)}
                         className="input-field pl-10"
-                      />
+                        required
+                        disabled={isLoading}
+                      >
+                        <option value="">
+                          {isLoading ? 'Loading airports...' : 'Select departure airport'}
+                        </option>
+                        {filteredAirports.map((airport) => (
+                          <option key={airport.icao} value={airport.icao}>
+                            {airport.iata} - {airport.city}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div>
@@ -92,11 +153,22 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
                     </label>
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
-                      <input
-                        type="text"
-                        placeholder="Destination"
+                      <select
+                        value={toAirport}
+                        onChange={(e) => setToAirport(e.target.value)}
                         className="input-field pl-10"
-                      />
+                        required
+                        disabled={isLoading}
+                      >
+                        <option value="">
+                          {isLoading ? 'Loading airports...' : 'Select destination airport'}
+                        </option>
+                        {filteredAirports.map((airport) => (
+                          <option key={airport.icao} value={airport.icao}>
+                            {airport.iata} - {airport.city}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -110,6 +182,8 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
                       <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
                       <input
                         type="date"
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)}
                         className="input-field pl-10"
                       />
                     </div>
@@ -122,6 +196,8 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
                       <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
                       <input
                         type="date"
+                        value={returnDate}
+                        onChange={(e) => setReturnDate(e.target.value)}
                         className="input-field pl-10"
                       />
                     </div>
@@ -134,7 +210,11 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
                   </label>
                   <div className="relative">
                     <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-secondary-400" />
-                    <select className="input-field pl-10">
+                    <select 
+                      value={passengers}
+                      onChange={(e) => setPassengers(e.target.value)}
+                      className="input-field pl-10"
+                    >
                       <option value="1">1 Passenger</option>
                       <option value="2">2 Passengers</option>
                       <option value="3">3 Passengers</option>
@@ -146,10 +226,20 @@ const Hero: React.FC<HeroProps> = ({ onExplore, onContact }) => {
 
                 <button
                   type="submit"
-                  className="btn-primary w-full flex items-center justify-center space-x-2 group"
+                  className="btn-primary w-full flex items-center justify-center space-x-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isLoading}
                 >
-                  <Search className="w-5 h-5" />
-                  <span>Search Now</span>
+                  {isLoading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Loading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Search className="w-5 h-5" />
+                      <span>Search Now</span>
+                    </>
+                  )}
                 </button>
               </form>
             </div>

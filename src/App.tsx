@@ -11,26 +11,6 @@ import { services, featuredPackages, testimonials, faqItems, howItWorksSteps } f
 import type { Inquiry } from './types';
 
 function App() {
-  const handleCTAClick = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleExploreClick = () => {
-    const element = document.querySelector('#packages');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleContactClick = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const handleFormSubmit = async (data: Inquiry) => {
     // Simulate API call
@@ -52,9 +32,9 @@ function App() {
 
   return (
     <div className="App">
-      <Header onCTAClick={handleCTAClick} />
+      <Header />
       <main>
-        <Hero onExplore={handleExploreClick} onContact={handleContactClick} />
+        <Hero />
         <ServicesGrid services={services} />
         <FeaturedPackages packages={featuredPackages} />
         <HowItWorks steps={howItWorksSteps} />
