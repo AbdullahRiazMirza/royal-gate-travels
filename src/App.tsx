@@ -1,5 +1,6 @@
 import Header from './components/Header';
 import Hero from './components/Hero';
+import AirlinesCarousel from './components/AirlinesCarousel';
 import ServicesGrid from './components/ServicesGrid';
 import FeaturedPackages from './components/FeaturedPackages';
 import HowItWorks from './components/HowItWorks';
@@ -20,6 +21,7 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <AirlinesCarousel />
         <ServicesGrid services={services} />
         <FeaturedPackages packages={featuredPackages} />
         <HowItWorks steps={howItWorksSteps} />

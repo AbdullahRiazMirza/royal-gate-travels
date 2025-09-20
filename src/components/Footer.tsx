@@ -21,14 +21,20 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div className="flex items-center space-x-6 text-sm">
-            <div className="flex items-center space-x-2">
-              <Phone className="w-4 h-4 text-primary-400" />
-              <span className="text-gray-300">+92 321 489 9987</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Mail className="w-4 h-4 text-primary-400" />
-              <span className="text-gray-300">info@royalgatetravels.com</span>
-            </div>
+            <a 
+              href="tel:+923214899987" 
+              className="flex items-center space-x-2 hover:text-primary-400 transition-colors duration-200 group"
+            >
+              <Phone className="w-4 h-4 text-primary-400 group-hover:text-primary-300 transition-colors duration-200" />
+              <span className="text-gray-300 group-hover:text-white transition-colors duration-200">+92 321 489 9987</span>
+            </a>
+            <a 
+              href="mailto:info@royalgatetravels.com" 
+              className="flex items-center space-x-2 hover:text-primary-400 transition-colors duration-200 group"
+            >
+              <Mail className="w-4 h-4 text-primary-400 group-hover:text-primary-300 transition-colors duration-200" />
+              <span className="text-gray-300 group-hover:text-white transition-colors duration-200">info@royalgatetravels.com</span>
+            </a>
           </div>
         </div>
 
