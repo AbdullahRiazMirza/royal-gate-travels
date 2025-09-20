@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +51,7 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-3">
             <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-3 shadow-lg">
               <img
-                src="/RGTT logo.PNG"
+                src={getAssetPath("/RGTT logo.PNG")}
                 alt="Royal Gate Travels"
                 className="h-12 w-auto object-contain"
               />

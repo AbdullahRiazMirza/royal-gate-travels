@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Service } from '../types';
 import { Heart, Plane, Shield, FileText, Building, ArrowRight } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 interface ServiceCardProps {
   service: Service;
@@ -9,7 +10,7 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [currentImageSrc, setCurrentImageSrc] = useState(`/services/${service.slug}.jpg`);
+  const [currentImageSrc, setCurrentImageSrc] = useState(getAssetPath(`/services/${service.slug}.jpg`));
 
   const getIcon = (iconName: string) => {
     const iconMap = {
@@ -39,7 +40,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   const handleImageError = () => {
     // Try .jpeg extension if .jpg fails
     if (currentImageSrc.endsWith('.jpg')) {
-      setCurrentImageSrc(`/services/${service.slug}.jpeg`);
+      setCurrentImageSrc(getAssetPath(`/services/${service.slug}.jpeg`));
     } else {
       setImageError(true);
     }

@@ -1,4 +1,5 @@
 import type { Service, Package, Testimonial, FAQItem, TrustIndicator, Step } from '../types';
+import { getAssetPath } from '../utils/assetPath';
 
 export const services: Service[] = [
   {
@@ -65,7 +66,7 @@ export const featuredPackages: Package[] = [
     priceFrom: 500000, // 5 lacs PKR
     priceFromPKR: '5 lacs',
     durationDays: 7,
-    images: ['/packages/maldives-honeymoon.jpg'],
+    images: [getAssetPath('/packages/maldives-honeymoon.jpg')],
     highlights: ['Overwater bungalow', 'Private beach access', 'Couples spa treatment', 'Sunset dinner cruise'],
     itinerary: ['Day 1: Arrival & welcome', 'Day 2-3: Beach activities', 'Day 4: Spa day', 'Day 5-6: Water sports', 'Day 7: Departure'],
     category: 'honeymoon'
@@ -77,7 +78,7 @@ export const featuredPackages: Package[] = [
     priceFrom: 900000, // 9 lacs PKR
     priceFromPKR: '9 lacs',
     durationDays: 14,
-    images: ['/packages/hajj-package.jpg'],
+    images: [getAssetPath('/packages/hajj-package.jpg')],
     highlights: ['5-star accommodation in Makkah', 'Expert Hajj guide', 'All meals included', 'Transportation provided'],
     itinerary: ['Day 1-3: Arrival & preparation', 'Day 4-7: Umra performance', 'Day 8-12: Hajj rituals', 'Day 13-14: Departure'],
     category: 'hajj-umra'
@@ -89,7 +90,7 @@ export const featuredPackages: Package[] = [
     priceFrom: 640000, // 6.4 lacs PKR
     priceFromPKR: '8 lacs',
     durationDays: 14,
-    images: ['/packages/europe-tour.jpg'],
+    images: [getAssetPath('/packages/europe-tour.jpg')],
     highlights: ['Paris, Rome, Barcelona', 'Guided city tours', 'High-speed train passes', '4-star hotels'],
     itinerary: ['Days 1-3: Paris', 'Days 4-7: Rome', 'Days 8-11: Barcelona', 'Days 12-14: Return'],
     category: 'air-tickets'

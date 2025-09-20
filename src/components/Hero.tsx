@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Calendar, Users, MapPin } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 interface Airport {
   icao: string;
@@ -27,19 +28,19 @@ const Hero: React.FC = () => {
 
   const heroImages = [
     {
-      src: '/packages/hajj-package.jpg',
+      src: getAssetPath('/packages/hajj-package.jpg'),
       alt: 'Hajj Package - Sacred Pilgrimage',
       title: 'Sacred Journeys',
       subtitle: 'Experience the spiritual journey of a lifetime'
     },
     {
-      src: '/services/honeymoon.jpg',
+      src: getAssetPath('/services/honeymoon.jpg'),
       alt: 'Honeymoon Packages - Romantic Getaways',
       title: 'Romantic Escapes',
       subtitle: 'Create unforgettable memories together'
     },
     {
-      src: '/packages/burjalarab.jpg',
+      src: getAssetPath('/packages/burjalarab.jpg'),
       alt: 'Burj Al Arab - Dubai Luxury',
       title: 'Luxury Destinations',
       subtitle: 'Indulge in world-class luxury and comfort'
@@ -48,7 +49,7 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     // Load airports data
-    fetch('/airports.json')
+    fetch(getAssetPath('/airports.json'))
       .then(response => response.json())
       .then(data => {
         // Convert object to array and filter for airports with IATA codes

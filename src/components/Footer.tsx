@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -12,7 +13,7 @@ const Footer: React.FC = () => {
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center p-2 shadow-lg">
               <img 
-                src="/RGTT logo.PNG" 
+                src={getAssetPath("/RGTT logo.PNG")} 
                 alt="Royal Gate Travels Logo" 
                 className="w-full h-full object-contain"
               />

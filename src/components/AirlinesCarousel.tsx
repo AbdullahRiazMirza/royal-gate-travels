@@ -1,34 +1,35 @@
 import React from 'react';
+import { getAssetPath } from '../utils/assetPath';
 
 const AirlinesCarousel: React.FC = () => {
   const airlines = [
     {
       name: 'Emirates',
-      logo: '/airlines/Emirates_Logo.svg',
+      logo: getAssetPath('/airlines/Emirates_Logo.svg'),
     },
     {
       name: 'Thai Airways',
-      logo: '/airlines/Thai_Airways_logo.svg',
+      logo: getAssetPath('/airlines/Thai_Airways_logo.svg'),
     },
     {
       name: 'Pakistan International Airlines',
-      logo: '/airlines/Pakistan_International_Airlines_logo_(2004).svg.png',
+      logo: getAssetPath('/airlines/Pakistan_International_Airlines_logo_(2004).svg.png'),
     },
     {
       name: 'Airblue',
-      logo: '/airlines/Airblue_Logo.svg',
+      logo: getAssetPath('/airlines/Airblue_Logo.svg'),
     },
     {
       name: 'SereneAir',
-      logo: '/airlines/SereneAir.svg',
+      logo: getAssetPath('/airlines/SereneAir.svg'),
     },
     {
       name: 'AirSial',
-      logo: '/airlines/AirSial.png',
+      logo: getAssetPath('/airlines/AirSial.png'),
     },
     {
       name: 'Fly Jinnah',
-      logo: '/airlines/Fly_Jinnah_logo2.png',
+      logo: getAssetPath('/airlines/Fly_Jinnah_logo2.png'),
     },
   ];
 
