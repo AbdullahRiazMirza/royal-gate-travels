@@ -144,11 +144,31 @@ const handleFormSubmit = async (data: Inquiry) => {
 
 ## 🚀 Deployment
 
-The application can be deployed to any static hosting service:
+### GitHub Pages (Recommended)
 
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+#### Automatic Deployment
+1. Push your code to the `main` branch
+2. Go to your repository's **Settings** → **Pages**
+3. Under "Source", select **GitHub Actions**
+4. The site will automatically deploy at: `https://yourusername.github.io/royal-gate-travels/`
+
+#### Manual Deployment
+```bash
+# Install dependencies (if not already done)
+npm install
+
+# Build the project
+npm run build
+
+# Deploy to GitHub Pages
+npm run deploy
+```
+
+#### Other Hosting Options
 - **Vercel**: `vercel --prod`
 - **Netlify**: Connect your repository
-- **GitHub Pages**: Use the `dist` folder
 - **AWS S3**: Upload the `dist` folder
 
 ## 📄 License
