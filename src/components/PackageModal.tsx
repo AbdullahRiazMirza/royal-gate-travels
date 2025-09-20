@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Package } from '../types';
 import { X, MapPin, Calendar, Users, Star, Check, ArrowRight } from 'lucide-react';
 
@@ -8,6 +8,9 @@ interface PackageModalProps {
 }
 
 const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -23,6 +26,14 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
       document.body.style.overflow = 'unset';
     };
   }, [onClose]);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   const getCategoryColor = (category: string) => {
     const colors = {
@@ -61,7 +72,24 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
       <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="relative">
-          <div className={`h-64 bg-gradient-to-br ${getCategoryColor(pkg.category)} flex items-center justify-center`}>
+          {/* Package Image */}
+          {!imageError && pkg.images && pkg.images.length > 0 ? (
+            <img
+              src={pkg.images[0]}
+              alt={pkg.title}
+              className={`w-full h-64 object-cover transition-opacity duration-300 ${
+                imageLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              loading="lazy"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          ) : null}
+          
+          {/* Fallback Gradient with Emoji */}
+          <div className={`h-64 bg-gradient-to-br ${getCategoryColor(pkg.category)} flex items-center justify-center transition-opacity duration-300 ${
+            imageLoaded && !imageError ? 'opacity-0 absolute inset-0' : 'opacity-100'
+          }`}>
             <div className="text-8xl opacity-30">
               {pkg.category === 'honeymoon' && '💕'}
               {pkg.category === 'hajj-umra' && '🕌'}
@@ -71,6 +99,13 @@ const PackageModal: React.FC<PackageModalProps> = ({ pkg, onClose }) => {
               {pkg.category === 'hotel-booking' && '🏨'}
             </div>
           </div>
+          
+          {/* Loading Placeholder */}
+          {!imageLoaded && !imageError && pkg.images && pkg.images.length > 0 && (
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all duration-200"

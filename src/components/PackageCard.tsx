@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Package } from '../types';
 import { Calendar, Users, Star, ArrowRight } from 'lucide-react';
 
@@ -8,6 +8,9 @@ interface PackageCardProps {
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({ pkg, onViewDetails }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const getCategoryColor = (category: string) => {
     const colors = {
       honeymoon: 'from-pink-500 to-rose-500',
@@ -32,12 +35,39 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onViewDetails }) => {
     return labels[category as keyof typeof labels] || category;
   };
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className="card overflow-hidden group hover:scale-105 transition-all duration-300">
       {/* Image */}
       <div className="relative h-48 bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden">
-        <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(pkg.category)} opacity-20`}></div>
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* Package Image */}
+        {!imageError && pkg.images && pkg.images.length > 0 ? (
+          <img
+            src={pkg.images[0]}
+            alt={pkg.title}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            loading="lazy"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+          />
+        ) : null}
+        
+        {/* Fallback Gradient with Emoji */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${getCategoryColor(pkg.category)} opacity-20 transition-opacity duration-300 ${
+          imageLoaded && !imageError ? 'opacity-0' : 'opacity-100'
+        }`}></div>
+        <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+          imageLoaded && !imageError ? 'opacity-0' : 'opacity-100'
+        }`}>
           <div className="text-6xl opacity-20">
             {pkg.category === 'honeymoon' && '💕'}
             {pkg.category === 'hajj-umra' && '🕌'}
@@ -47,11 +77,22 @@ const PackageCard: React.FC<PackageCardProps> = ({ pkg, onViewDetails }) => {
             {pkg.category === 'hotel-booking' && '🏨'}
           </div>
         </div>
+        
+        {/* Loading Placeholder */}
+        {!imageLoaded && !imageError && pkg.images && pkg.images.length > 0 && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+        
+        {/* Category Badge */}
         <div className="absolute top-4 left-4">
           <span className={`px-3 py-1 rounded-full text-xs font-medium text-white bg-gradient-to-r ${getCategoryColor(pkg.category)}`}>
             {getCategoryLabel(pkg.category)}
           </span>
         </div>
+        
+        {/* Rating Badge */}
         <div className="absolute top-4 right-4">
           <div className="flex items-center space-x-1 bg-white bg-opacity-90 rounded-full px-2 py-1">
             <Star className="w-3 h-3 text-yellow-500 fill-current" />

@@ -4,7 +4,7 @@ export const services: Service[] = [
   {
     id: '1',
     title: 'Honeymoon Packages',
-    slug: 'honeymoon-packages',
+    slug: 'honeymoon',
     shortDescription: 'Romantic getaways for your special moments',
     longDescription: 'Create unforgettable memories with our carefully curated honeymoon packages to the world\'s most romantic destinations.',
     iconName: 'Heart',
@@ -13,7 +13,7 @@ export const services: Service[] = [
   {
     id: '2',
     title: 'Hajj & Umra',
-    slug: 'hajj-umra',
+    slug: 'hajj',
     shortDescription: 'Sacred journeys with spiritual guidance',
     longDescription: 'Experience the pilgrimage of a lifetime with our comprehensive Hajj and Umra packages, including accommodation and guidance.',
     iconName: 'Mosque',
@@ -22,7 +22,7 @@ export const services: Service[] = [
   {
     id: '3',
     title: 'Worldwide Air Tickets',
-    slug: 'air-tickets',
+    slug: 'worldwideairtickets',
     shortDescription: 'Best deals on flights worldwide',
     longDescription: 'Find the best airfare deals to any destination worldwide with our extensive network of airline partners.',
     iconName: 'Plane',
@@ -31,7 +31,7 @@ export const services: Service[] = [
   {
     id: '4',
     title: 'Travel Insurance',
-    slug: 'travel-insurance',
+    slug: 'travelinsurance',
     shortDescription: 'Comprehensive coverage for peace of mind',
     longDescription: 'Protect your journey with our comprehensive travel insurance plans covering medical, trip cancellation, and more.',
     iconName: 'Shield',
@@ -40,7 +40,7 @@ export const services: Service[] = [
   {
     id: '5',
     title: 'Visa Services',
-    slug: 'visa-services',
+    slug: 'visa-service',
     shortDescription: 'Expert assistance with visa applications',
     longDescription: 'Get expert help with visa applications for countries worldwide, ensuring a smooth and successful process.',
     iconName: 'FileText',
@@ -49,7 +49,7 @@ export const services: Service[] = [
   {
     id: '6',
     title: 'Hotel Booking',
-    slug: 'hotel-booking',
+    slug: 'hotelbooking',
     shortDescription: 'Luxury accommodations worldwide',
     longDescription: 'Book the perfect accommodation for your stay, from luxury resorts to budget-friendly options.',
     iconName: 'Building',
@@ -64,7 +64,7 @@ export const featuredPackages: Package[] = [
     summary: '7 days of luxury in overwater bungalows',
     priceFrom: 2500,
     durationDays: 7,
-    images: ['/images/maldives-1.jpg', '/images/maldives-2.jpg'],
+    images: ['/packages/maldives-honeymoon.jpg'],
     highlights: ['Overwater bungalow', 'Private beach access', 'Couples spa treatment', 'Sunset dinner cruise'],
     itinerary: ['Day 1: Arrival & welcome', 'Day 2-3: Beach activities', 'Day 4: Spa day', 'Day 5-6: Water sports', 'Day 7: Departure'],
     category: 'honeymoon'
@@ -75,7 +75,7 @@ export const featuredPackages: Package[] = [
     summary: 'Full Hajj experience with expert guidance',
     priceFrom: 4500,
     durationDays: 14,
-    images: ['/images/hajj-1.jpg', '/images/hajj-2.jpg'],
+    images: ['/packages/hajj-package.jpg'],
     highlights: ['5-star accommodation in Makkah', 'Expert Hajj guide', 'All meals included', 'Transportation provided'],
     itinerary: ['Day 1-3: Arrival & preparation', 'Day 4-7: Umra performance', 'Day 8-12: Hajj rituals', 'Day 13-14: Departure'],
     category: 'hajj-umra'
@@ -86,7 +86,7 @@ export const featuredPackages: Package[] = [
     summary: '14 days exploring Europe\'s finest cities',
     priceFrom: 3200,
     durationDays: 14,
-    images: ['/images/europe-1.jpg', '/images/europe-2.jpg'],
+    images: ['/packages/europe-tour.jpg'],
     highlights: ['Paris, Rome, Barcelona', 'Guided city tours', 'High-speed train passes', '4-star hotels'],
     itinerary: ['Days 1-3: Paris', 'Days 4-7: Rome', 'Days 8-11: Barcelona', 'Days 12-14: Return'],
     category: 'air-tickets'

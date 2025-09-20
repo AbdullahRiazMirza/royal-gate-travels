@@ -9,6 +9,7 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [currentImageSrc, setCurrentImageSrc] = useState(`/services/${service.slug}.jpg`);
 
   const getIcon = (iconName: string) => {
     const iconMap = {
@@ -36,7 +37,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   };
 
   const handleImageError = () => {
-    setImageError(true);
+    // Try .jpeg extension if .jpg fails
+    if (currentImageSrc.endsWith('.jpg')) {
+      setCurrentImageSrc(`/services/${service.slug}.jpeg`);
+    } else {
+      setImageError(true);
+    }
   };
 
   return (
@@ -48,11 +54,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
       <div className="relative h-48 bg-gradient-to-br from-primary-50 to-primary-100 overflow-hidden">
         {!imageError ? (
           <img
-            src={`/services/${service.slug}.jpg`}
+            src={currentImageSrc}
             alt={service.title}
             className={`w-full h-full object-cover transition-opacity duration-300 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{
+              objectPosition: service.slug === 'visa-service' ? 'top' : 'center'
+            }}
             loading="lazy"
             onLoad={handleImageLoad}
             onError={handleImageError}

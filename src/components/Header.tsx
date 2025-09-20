@@ -47,9 +47,13 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">R</span>
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 flex items-center justify-center">
+              <img
+                src="/RGTT logo.PNG"
+                alt="Royal Gate Travels"
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl font-heading font-bold text-secondary-900">
