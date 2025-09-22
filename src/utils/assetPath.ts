@@ -1,17 +1,17 @@
 /**
- * Get the correct asset path based on the environment
- * In development: returns the path as-is
- * In production: adds the /royal-gate-travels/ prefix for GitHub Pages
+ * Build an asset URL that respects Vite's configured base path.
+ * This avoids hardcoding repository or domain-specific prefixes and
+ * works for local dev, custom domains, and subpath (e.g. GitHub Pages) deployments.
  */
 export const getAssetPath = (path: string): string => {
-  // Remove leading slash if present to avoid double slashes
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
-  // In production, add the repository name prefix
-  if (import.meta.env.PROD) {
-    return `/royal-gate-travels/${cleanPath}`;
-  }
-  
-  // In development, return with leading slash
-  return `/${cleanPath}`;
+
+  // Vite injects BASE_URL at build time based on vite.config.ts `base`
+  const base = import.meta.env.BASE_URL || '/';
+
+  // Normalize to avoid double slashes
+  const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+
+  return `${normalizedBase}${normalizedPath}`;
 };
