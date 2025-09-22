@@ -54,7 +54,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
         const body = encodeURIComponent(
           `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`
         );
-        window.open(`mailto:info@royalgatetravels.com?subject=${subject}&body=${body}`);
+        window.open(`mailto:royalgatetravels@gmail.com?subject=${subject}&body=${body}`);
       }
       
       setSubmitStatus('success');
@@ -103,7 +103,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
 
               {/* Email Tile */}
               <a 
-                href="mailto:info@royalgatetravels.com" 
+                href="mailto:royalgatetravels@gmail.com" 
                 className="group bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 hover:border-primary-200 block"
               >
                 <div className="flex items-center space-x-4">
@@ -112,7 +112,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ emailEndpoint }) => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-secondary-900 mb-1 group-hover:text-primary-600 transition-colors duration-200">Email</h4>
-                    <p className="text-primary-600 font-medium">info@royalgatetravels.com</p>
+                    <p className="text-primary-600 font-medium">royalgatetravels@gmail.com</p>
                     <p className="text-sm text-secondary-500">We'll respond within 24 hours</p>
                   </div>
                 </div>
